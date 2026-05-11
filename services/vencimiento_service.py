@@ -72,3 +72,41 @@ def vencimientos(usuario, chat_id):
         )
 
     enviarMensaje(chat_id, texto)
+
+def eliminarVencimiento(usuario, chat_id, args):
+
+    if not args:
+        enviarMensaje(
+            chat_id,
+            "❌ Usá:\n/eliminarvencimiento ID"
+        )
+        return
+
+    if not args.isdigit():
+        enviarMensaje(
+            chat_id,
+            "❌ El ID debe ser numérico"
+        )
+        return
+
+    vencimiento_id = int(args)
+
+    vencimiento = Vencimiento.query.filter_by(
+        Id=vencimiento_id,
+        IdUsuario=usuario.Id
+    ).first()
+
+    if not vencimiento:
+        enviarMensaje(
+            chat_id,
+            "❌ No se encontró el vencimiento"
+        )
+        return
+
+    db.session.delete(vencimiento)
+    db.session.commit()
+
+    enviarMensaje(
+        chat_id,
+        f"🗑️ Vencimiento #{vencimiento_id} eliminado correctamente"
+    )
