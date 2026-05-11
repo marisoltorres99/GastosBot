@@ -14,3 +14,5 @@ class Usuario(db.Model):
     __table_args__ = (
         db.UniqueConstraint('IdChat', name='uq_usuario_chat'),
     )
+
+    vencimientos = db.relationship("Vencimiento", backref="usuario", lazy=True)
