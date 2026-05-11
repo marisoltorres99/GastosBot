@@ -54,7 +54,7 @@ def webhook():
 
         "/vencimiento luz 2026-05-20 — Registrar un vencimiento 📅\n"
         "/vencimientos — Ver tus vencimientos registrados\n"
-        "/eliminarvencimiento ID — Eliminar un vencimiento específico\n\n"
+        "/eliminarvencimiento ID — Eliminar un vencimiento específico (ej: /eliminarvencimiento 3)\n\n"
 
         "/baja — Para dejar de usar el bot\n\n"
 
