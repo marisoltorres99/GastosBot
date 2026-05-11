@@ -11,6 +11,8 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 db.init_app(app)
+with app.app_context():
+    db.create_all()
 
 app.register_blueprint(webhook_bp)
 app.register_blueprint(health_bp)
