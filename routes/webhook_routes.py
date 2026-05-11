@@ -67,6 +67,9 @@ def webhook():
         nuevoGasto(usuario, chat_id, args)
     elif texto.startswith("/gastos"):
         gastos(usuario, chat_id)
+    elif texto.startswith("/eliminarvencimiento"):
+        args = texto[len("/eliminarvencimiento"):].strip()
+        eliminarVencimiento(usuario, chat_id, args)
     elif texto.startswith("/eliminar"):
         args = texto[len("/eliminar"):].strip()
         eliminarGasto(usuario, chat_id, args)
@@ -81,9 +84,6 @@ def webhook():
         nuevoVencimiento(usuario, chat_id, args)
     elif texto.startswith("/vencimientos"):
         vencimientos(usuario, chat_id)
-    elif texto.startswith("/eliminarvencimiento"):
-        args = texto[len("/eliminarvencimiento"):].strip()
-        eliminarVencimiento(usuario, chat_id, args)
     elif texto.startswith("/midashboard"):
         if not usuario.LinkDashboard:
             generarLinkDashboard(usuario)

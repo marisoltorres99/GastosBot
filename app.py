@@ -1,14 +1,10 @@
 from flask import Flask
-from dotenv import load_dotenv
 
 from database import db
 from config import Config
 
 from routes.webhook_routes import webhook_bp
 from routes.health_routes import health_bp
-
-
-load_dotenv()
 
 app = Flask(__name__)
 
