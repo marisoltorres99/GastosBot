@@ -21,7 +21,13 @@ app.register_blueprint(webhook_bp)
 app.register_blueprint(health_bp)
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(verificar_vencimientos, "interval", minutes=1)
+
+scheduler.add_job(
+    func=lambda: verificar_vencimientos(app),
+    trigger="interval",
+    minutes=1
+)
+
 scheduler.start()
 
 if __name__ == "__main__":

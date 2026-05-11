@@ -1,26 +1,28 @@
+from datetime import date
+
 from models import Vencimiento
-from services.telegram_service import enviarMensaje
 from database import db
-from utils.datetime_utils import now
+from services.telegram_service import enviarMensaje
 
-def verificar_vencimientos():
-    hoy = now().date()
+def verificar_vencimientos(app):
 
-    vencimientos = (
-        Vencimiento.query
-        .filter_by(Avisado=False)
-        .all()
-    )
+    with app.app_context():
 
-    for v in vencimientos:
-        dias_restantes = (v.FechaVencimiento - hoy).days
+        hoy = date.today()
 
-        if dias_restantes <= 1:
-            enviarMensaje(
-                v.usuario.IdChat,
-                f"📅 Recordatorio: el vencimiento '{v.Nombre}' vence el {v.FechaVencimiento}"
-            )
+        vencimientos = Vencimiento.query.filter_by(Avisado=False).all()
 
-            v.Avisado = True
+        for v in vencimientos:
 
-    db.session.commit()
+            dias_restantes = (v.FechaVencimiento - hoy).days
+
+            if dias_restantes <= 1:
+
+                enviarMensaje(
+                    v.usuario.IdChat,
+                    f"⏰ Recordatorio:\nTu vencimiento '{v.Nombre}' vence el {v.FechaVencimiento}"
+                )
+
+                v.Avisado = True
+
+        db.session.commit()
