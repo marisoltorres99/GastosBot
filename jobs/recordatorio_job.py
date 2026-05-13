@@ -1,4 +1,5 @@
 from datetime import date
+from utils.datetime_utils import now
 
 from models import Vencimiento
 from database import db
@@ -8,7 +9,7 @@ def verificar_vencimientos(app):
 
     with app.app_context():
 
-        hoy = date.today()
+        hoy = now().date()
 
         vencimientos = Vencimiento.query.filter_by(Avisado=False).all()
 
